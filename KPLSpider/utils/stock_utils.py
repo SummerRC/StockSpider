@@ -11,7 +11,7 @@ class StockUtils:
         if StockUtils.today_is_a_stock_trade_day():
             # A股交易时间范围
             n_date = datetime.datetime.now().date()
-            morning_start_time = datetime.datetime.strptime(str(n_date) + '9:25', '%Y-%m-%d%H:%M')
+            morning_start_time = datetime.datetime.strptime(str(n_date) + '9:15', '%Y-%m-%d%H:%M')
             morning_end_time = datetime.datetime.strptime(str(n_date) + '11:30', '%Y-%m-%d%H:%M')
             afternoon_start_time = datetime.datetime.strptime(str(n_date) + '13:00', '%Y-%m-%d%H:%M')
             afternoon_end_time = datetime.datetime.strptime(str(n_date) + '15:00', '%Y-%m-%d%H:%M')
