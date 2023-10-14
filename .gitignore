@@ -2,6 +2,7 @@ config.ini
 scrapydweb_settings_v10.py
 scrapy.cfg
 scrapyd.conf
+/release
 
 .DS_Store
 .cache

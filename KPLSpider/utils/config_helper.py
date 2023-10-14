@@ -1,4 +1,5 @@
 import configparser
+import logging
 
 
 def singleton(cls):
@@ -24,9 +25,11 @@ class ConfigHelper(object):
         conf.read('config.ini')
         is_online = bool(conf.get("DEFAULT", "IS_ONLINE"))
         if is_online is True:
+            logging.warning("is_online is True, 生产环境!!!")
             # 生产环境数据库
             config_db_name = "PROD_DATABASE"
         else:
+            logging.debug("is_online is False, 开发环境")
             # 开发环境数据库
             config_db_name = "DEV_DATABASE"
 
