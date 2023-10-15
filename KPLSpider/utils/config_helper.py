@@ -23,8 +23,8 @@ class ConfigHelper(object):
     def __init__(self):
         conf = configparser.ConfigParser()
         conf.read('config.ini')
-        is_online = bool(conf.get("DEFAULT", "IS_ONLINE"))
-        if is_online is True:
+        is_online = conf.getboolean("DEFAULT", "IS_ONLINE")
+        if is_online:
             logging.warning("is_online is True, 生产环境!!!")
             # 生产环境数据库
             config_db_name = "PROD_DATABASE"
