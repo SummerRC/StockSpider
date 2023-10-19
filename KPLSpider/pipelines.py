@@ -1,4 +1,3 @@
-
 import datetime
 import logging
 
@@ -12,7 +11,7 @@ from KPLSpider.utils.stock_utils import StockUtils
 class KplSpiderPipeline:
 
     def __init__(self):
-        self.data = []
+        pass
 
     # 爬虫开启的时候会执行一次
     def open_spider(self, spider):
@@ -69,11 +68,14 @@ class KplSpiderPipeline:
         db_helper = ZhqdDbHelper()
         db_helper.insert_to_db(item, spider)
 
+        db_daban_helper = DaBanDbHelper()
+        db_daban_helper.insert_to_db(item, spider)
+
 
 class KPLDaBanPipeline:
 
     def __init__(self):
-        self.data = []
+        pass
 
     # 爬虫开启的时候会执行一次
     def open_spider(self, spider):
@@ -107,5 +109,3 @@ class KPLDaBanPipeline:
 
         db_helper = DaBanDbHelper()
         db_helper.insert_to_db(item, spider)
-
-

@@ -66,7 +66,8 @@ class StockUtils:
         return n_time >= time_13
 
     # 如果当天是休息日，该方法获取最近的交易日的日期的timestamp（要排除掉调休的周六周日）
-    def get_previous_workday_timestamp(self):
+    @staticmethod
+    def get_previous_workday_timestamp():
         # 最近的一个工作日
         previous_work_day = StockUtils.get_previous_work_day()
         # 返回星期几（数字0 代表周一）
@@ -76,6 +77,25 @@ class StockUtils:
             return timestamp
         else:               # 周六周日，应该返回周六周日之前的最近一个周一到周五的工作日
             return 0
+
+    @staticmethod
+    def need_crawl_data():
+        # 1、非交易日，不抓数据，因为已在交易日抓取过
+        if StockUtils.today_is_a_stock_trade_day():
+            return False
+
+        # 2、交易日，分情况
+        # 2.1、交易时间，需要抓取
+        if StockUtils.a_stock_is_trade_time():
+            return True
+
+        # 2.2、交易日的非交易时间，分情况处理
+        # 2.2.1 处于下午一点前的非交易时间，不抓取
+        if StockUtils.time_is_before_13_clock():
+            return False
+        # 2.2.1 处于下午3点后的非交易时间，抓取
+        else:
+            return True
 
 
 
