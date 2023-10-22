@@ -43,6 +43,16 @@ class StockUtils:
         # print("寻找workday" + str(find_workday(-1)))
         return previous_day
 
+    @staticmethod
+    def time_is_before_9_30_clock():
+        # A股交易时间范围
+        n_date = datetime.datetime.now().date()
+        time_9_30 = datetime.datetime.strptime(str(n_date) + '9:00', '%Y-%m-%d%H:%M')
+
+        # 当前时间
+        n_time = datetime.datetime.now()
+        return n_time < time_9_30
+
     # 仅用于判定当前时间是13点之前还是之后
     @staticmethod
     def time_is_before_13_clock():

@@ -6,6 +6,7 @@ from KPLSpider.db.db_helper_daban import DaBanDbHelper
 from KPLSpider.db.db_helper_zhqd import ZhqdDbHelper
 from KPLSpider.spiders.da_ban_list import DaBanListSpider
 from KPLSpider.spiders.motion_strength import MotionStrengthSpider
+from KPLSpider.utils.ak_share_utile import AkShareUtils
 from KPLSpider.utils.stock_utils import StockUtils
 
 
@@ -76,6 +77,10 @@ class KplSpiderPipeline:
         db_daban_helper = DaBanDbHelper()
         db_daban_helper.insert_to_db(item, spider)
 
+        # 开盘啦每分钟会抓取一条，对应从AkShare抓取并存储一条指数的点位
+        index_as_helper = AkShareDbHelper()
+        index_as_helper.insert_one_item_to_db(AkShareUtils.get_current_data_list(), spider)
+
 
 class KPLDaBanPipeline:
 
@@ -122,3 +127,7 @@ class KPLDaBanPipeline:
 
         db_helper = DaBanDbHelper()
         db_helper.insert_to_db(item, spider)
+
+        # 开盘啦每分钟会抓取一条，对应从AkShare抓取并存储一条指数的点位
+        index_as_helper = AkShareDbHelper()
+        index_as_helper.insert_one_item_to_db(AkShareUtils.get_current_data_list(), spider)

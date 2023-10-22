@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Time : 2023/10/21 23:03
 # @Author : SummerRC
+import datetime
+
 import akshare as ak
 
 
@@ -10,13 +12,30 @@ class TestAkShare:
         pass
 
     def print_data(self):
+        current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        start_date = datetime.datetime.strptime(str(current_time) + ':00', '%Y-%m-%d %H:%M:%S')
+        end_date = start_date
+        print(current_time)
+
         stock_zh_index_spot_df = ak.index_zh_a_hist_min_em("000001", '1',
-                                                           start_date='2023-10-01 09:15:00',
-                                                           end_date='2023-10-20 15:00:00')
-        # writer = pd.ExcelWriter('./', engine='xlsxwriter')
-        # stock_zh_index_spot_df.to_excel(sheet_name='A股指数分时数据.xlsx', excel_writer=writer)
-        stock_zh_index_spot_df.to_csv('A股指数分时数据.csv')
-        print(stock_zh_index_spot_df)
+                                                           str(start_date),
+                                                           str(end_date))
+
+        if stock_zh_index_spot_df.empty:
+            print(str(stock_zh_index_spot_df.empty))
+        else:
+            first_column = stock_zh_index_spot_df.iloc[0, :]
+            first_column = first_column.values
+            first_column.tolist()
+            for item in first_column:
+                print(item)
+
+
+
+
+
+
+
 
 
 share = TestAkShare()

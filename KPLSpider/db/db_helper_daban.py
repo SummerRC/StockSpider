@@ -24,7 +24,6 @@ class DaBanDbHelper(DbHelper):
                   item['q_zrcs'], item['Day'], item['data_crawl_timestamp'], item['timestamp'], item['is_trade_time'],
                   item['s_zrtj'], item['q_zrtj'], item['index_price_zr']))
 
-        spider.log("sql: " + sql, logging.DEBUG)
         try:
             self.cursor.execute(sql)
             self.conn.commit()
