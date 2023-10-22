@@ -52,6 +52,8 @@ class MotionStrengthSpider(scrapy.Spider):
         motion_item['qscln'] = da_ban_list['qscln']
         motion_item['s_zrcs'] = da_ban_list['s_zrcs']
         motion_item['q_zrcs'] = da_ban_list['q_zrcs']
+        motion_item['s_zrtj'] = da_ban_list['s_zrtj']
+        motion_item['q_zrtj'] = da_ban_list['q_zrtj']
         motion_item['Day'] = sel.response.json()['Day']
 
         # 打印数据

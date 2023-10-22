@@ -44,6 +44,8 @@ class DaBanListSpider(scrapy.Spider):
         da_ban_item['qscln'] = da_ban_list['qscln']
         da_ban_item['s_zrcs'] = da_ban_list['s_zrcs']
         da_ban_item['q_zrcs'] = da_ban_list['q_zrcs']
+        da_ban_item['s_zrtj'] = da_ban_list['s_zrtj']
+        da_ban_item['q_zrtj'] = da_ban_list['q_zrtj']
         da_ban_item['Day'] = sel.response.json()['Day']
         da_ban_item['data_crawl_timestamp'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 

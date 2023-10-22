@@ -1,6 +1,7 @@
 import datetime
 import logging
 
+from KPLSpider.db.db_helper_as import AkShareDbHelper
 from KPLSpider.db.db_helper_daban import DaBanDbHelper
 from KPLSpider.db.db_helper_zhqd import ZhqdDbHelper
 from KPLSpider.spiders.da_ban_list import DaBanListSpider
@@ -65,6 +66,10 @@ class KplSpiderPipeline:
         if int(item['zhqd']) == 0:
             return
 
+        # 先补充缺失的数据——昨日指数收盘价，再插数据中
+        as_helper = AkShareDbHelper()
+        item['index_price_zr'] = as_helper.get_yesterday_index(item, spider)
+
         db_helper = ZhqdDbHelper()
         db_helper.insert_to_db(item, spider)
 
@@ -97,7 +102,11 @@ class KPLDaBanPipeline:
     def save_data(self, item, spider):
         need_insert_to_db = StockUtils.today_is_a_stock_trade_day() & StockUtils.time_is_after_15_clock()
         spider.log("need_insert_to_db: " + str(need_insert_to_db))
-        if need_insert_to_db is True:
+        if need_insert_to_db:
+            item["is_trade_time"] = 0
+            today = datetime.datetime.now().date()
+            timestamp = datetime.datetime.strptime(str(today) + ' 15:00:00', '%Y-%m-%d %H:%M:%S')
+            item["timestamp"] = timestamp
             # 交易日且是收盘时间才插入数据到数据库中
             self.insert_to_db(item, spider)
 
@@ -106,6 +115,10 @@ class KPLDaBanPipeline:
         # 情绪为0的数据视为异常数据，不执行插入操作
         if int(item['ZHQD']) == 0:
             return
+
+        # 先补充缺失的数据——昨日指数收盘价，再插数据
+        as_helper = AkShareDbHelper()
+        item['index_price_zr'] = as_helper.get_yesterday_index(item, spider)
 
         db_helper = DaBanDbHelper()
         db_helper.insert_to_db(item, spider)

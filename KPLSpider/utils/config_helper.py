@@ -42,4 +42,5 @@ class ConfigHelper(object):
         self.db_table_name_zhqd = conf.get("DB_TABLE_NAME", 'ZHQD')
         self.db_table_name_zhqd_unique = conf.get("DB_TABLE_NAME", 'ZHQD_UNIQUE')
         self.db_table_name_da_ban = conf.get("DB_TABLE_NAME", 'DA_BAN_LIST')
+        self.db_table_name_ak_share_index = conf.get("DB_TABLE_NAME", 'AK_SHARE_INDEX')
 

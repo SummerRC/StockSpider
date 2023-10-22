@@ -45,12 +45,18 @@ class MotionItem(scrapy.Item):
     szln = scrapy.Field()
     # 全市场量能
     qscln = scrapy.Field()
-    # 上证昨日总量能
+    # 上证昨日此时总量能
     s_zrcs = scrapy.Field()
-    # 全市场昨日总量能
+    # 全市场昨日此时总量能
     q_zrcs = scrapy.Field()
+    # 全市场昨日..
+    s_zrtj = scrapy.Field()
+    # 全市场昨日总量能
+    q_zrtj = scrapy.Field()
     # 接口返回的交易日期
     Day = scrapy.Field()
+    # 昨日指数，接口中没有，需要从数据库表 AK_SHARE_INDEX 读取
+    index_price_zr = scrapy.Field()
 
 
 class DaBanItem(scrapy.Item):
@@ -87,7 +93,17 @@ class DaBanItem(scrapy.Item):
     s_zrcs = scrapy.Field()
     # 全市场昨日总量能
     q_zrcs = scrapy.Field()
+    # 全市场昨日..
+    s_zrtj = scrapy.Field()
+    # 全市场昨日总量能
+    q_zrtj = scrapy.Field()
     # 接口返回的交易日期
     Day = scrapy.Field()
+    # 当下情绪强度对应的时间戳，eg: 2023-10-01 21:24:55
+    timestamp = scrapy.Field()
+    # 是否是交易时间，值为1或者0
+    is_trade_time = scrapy.Field()
     # 数据生成的时间
     data_crawl_timestamp = scrapy.Field()
+    # 昨日指数，接口中没有，需要从数据库表 AK_SHARE_INDEX 读取
+    index_price_zr = scrapy.Field()
